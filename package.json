@@ -1,0 +1,23 @@
+{
+  "name": "EvgenParse",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "create": "node create.js",
+    "update": "node update.js",
+    "dev": "nodemon create.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.23.0",
+    "cheerio": "^1.0.0-rc.10",
+    "csv-parser": "^3.0.0",
+    "csv-writer": "^1.6.0",
+    "json-2-csv": "^3.14.4",
+    "xlsx": "^0.17.3"
+  }
+}
