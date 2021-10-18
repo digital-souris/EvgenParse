@@ -86,6 +86,7 @@ module.exports = {
     },
     async loadPage(link) {
         try {
+            console.log(`Парсинг страницы ${link}`)
             const resp = await axios.get(link)
             if (resp.status === 200) {
                 const $ = cheerio.load(resp.data)
