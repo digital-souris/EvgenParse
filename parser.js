@@ -13,7 +13,6 @@ module.exports = {
             this.createHeaders()
         }
         await this.loadPages(this.page)
-        console.log(this.data)
         converter.json2csv(this.data, this.options, (err, csv) => {
             if (err) {
                 throw err;
@@ -72,7 +71,7 @@ module.exports = {
                             await this.loadPage(link)
                         }
                         this.page = this.page + 1
-                        //await this.loadPages()
+                        await this.loadPages()
                     }
                 }
                 else {
