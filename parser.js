@@ -4,11 +4,14 @@ const converter = require('json-2-csv')
 const fs = require('fs')
 
 module.exports = {
+
     async startParse(update) {
         this.updater = update
         this.options = {}
         this.page = 1
         this.data = []
+        this.counter = 0
+        this.maxCount = 100
         if (!this.updater) {
             this.createHeaders()
         }
@@ -63,14 +66,19 @@ module.exports = {
             if (resp.status === 200) {
                 const $ = cheerio.load(resp.data)
                 if (!$('.fa-search-dollar').length) {
-                    const items = $('.kt-todo__content .kt-portlet[data-ktportlet=true]')
+                    const items = $('.kt-portlet__head-title.pt-1.mb-0')
                     for (let i = 0; i < items.length; i++) {
                         const item = items.eq(i)
-                        const link = item.find('a').attr('href')
+                        const link = item.find('.link-hidden').attr('href')
                         if(link !== '#') {
                             await this.loadPage(link)
                         }
-                        this.page = this.page + 1
+                    }
+                    this.page = this.page + 1
+                    if (this.counter >= this.maxCount) {
+                        return false
+                    }
+                    else {
                         await this.loadPages()
                     }
                 }
@@ -159,6 +167,7 @@ module.exports = {
                     }
                 }
                 this.data.push(data)
+                this.counter++
             }
         }
         catch (e) {
