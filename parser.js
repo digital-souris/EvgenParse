@@ -11,7 +11,7 @@ module.exports = {
         this.page = 1
         this.data = []
         this.counter = 0
-        this.maxCount = 100
+        this.maxCount = 10
         if (!this.updater) {
             this.createHeaders()
         }
@@ -166,8 +166,10 @@ module.exports = {
                         }
                     }
                 }
-                this.data.push(data)
-                this.counter++
+                if (parseInt(data['Текущая_цена']) > 999999 || parseInt(data['Начальная_цена']) > 999999) {
+                    this.data.push(data)
+                    this.counter++
+                }
             }
         }
         catch (e) {
